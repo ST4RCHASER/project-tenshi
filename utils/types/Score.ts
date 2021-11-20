@@ -1,7 +1,8 @@
 import { GameState, GameType, Team } from "..";
 export interface Score {
+    id: string,
     gameType: GameType,
-    name: String,
+    name: string,
     stamp: Date | number,
     state: GameState,
     teams: Team[],

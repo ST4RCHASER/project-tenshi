@@ -1,30 +1,34 @@
 import Link from 'next/link'
 import Layout from '../components/Layout'
-import { addZeroToTime, getGameName } from '../utils/tools'
+import { addZeroToTime, getGameName, getSocket } from '../utils'
 import React, { useState, useEffect } from "react";
-import socketIOClient from "socket.io-client";
 import { GameState, Score } from '../utils';
-const ENDPOINT = "http://localhost:8081";
-const socket = socketIOClient(ENDPOINT);
 const IndexPage = () => {
-  const [scoreList, setScoreList] = useState([]);
+  const [scoreList, setScoreList] = useState<Score[]>([]);
+  let socket = getSocket();
   let rawScore: Score[] = [];
   useEffect(() => {
     socket.on('client:welcome', data => {
       console.log(data);
       socket.emit('score:overall');
     });
+    setInterval(() => {
+      if (socket) {
+        socket.emit('score:overall');
+      }
+    }, 3000);
     socket.on('score:overall', data => {
       console.log(data)
       rawScore = data.scores
-      let submitScore = [];
+      let submitScore: any[] = [];
       for (const score of rawScore) {
         let content: string = "";
         let date = new Date(score.stamp);
-        for(const team of score.teams) {
+        for (const team of score.teams) {
           content += `${team.name} ${team.score}`;
         }
         submitScore.push({
+          id: score.id,
           date: `${addZeroToTime(date.getDate())}/${addZeroToTime(date.getMonth())}/${addZeroToTime(date.getFullYear())}`,
           time: `${addZeroToTime(date.getHours())}:${addZeroToTime(date.getMinutes())}`,
           gameName: getGameName(score.gameType),
@@ -55,31 +59,33 @@ const IndexPage = () => {
             </tr>
           </thead>
           <tbody>
-            {scoreList.map((score, index) => {
+            {scoreList.map((score: any, index) => {
               let borderColor = `border-blue-200`;
-              let backgroundColor = `bg-blue-50`;
-              switch(score.state) {
+              let backgroundColor = `bg-blue-50 hover:bg-blue-200 transition duration-150`;
+              switch (score.state) {
                 case GameState.NOT_START:
                   borderColor = `border-yellow-200`;
-                  backgroundColor = `bg-yellow-50`;
+                  backgroundColor = `bg-yellow-50 hover:bg-yellow-200 transition duration-150`;
                   break;
                 case GameState.INGAME:
                   borderColor = `border-green-200`;
-                  backgroundColor = `bg-green-50`;
+                  backgroundColor = `bg-green-50 hover:bg-green-200 transition duration-150`;
                   break;
                 case GameState.ENDED:
                   borderColor = `border-red-200`;
-                  backgroundColor = `bg-red-50`;
+                  backgroundColor = `bg-red-50 hover:bg-red-200 transition duration-150`;
               }
               return (
-                <tr key="{index}">
-                  <td className={`border h-16 ${borderColor} ${backgroundColor}`}>{index + 1}</td>
-                  <td className={`border ${borderColor} ${backgroundColor}`}>{score.name}</td>
-                  <td className={`border ${borderColor} ${backgroundColor}`}>{score.date}</td>
-                  <td className={`border ${borderColor} ${backgroundColor}`}>{score.time}</td>
-                  <td className={`border ${borderColor} ${backgroundColor}`}>{score.gameName}</td>
-                  <td className={`border ${borderColor} ${backgroundColor}`}>{score.content}</td>
-                </tr>
+                <Link key="{index}" href={`/game/${score.id}`}>
+                  <tr className={`border ${borderColor} ${backgroundColor} cursor-pointer`}>
+                    <td className={`border h-16`}>{index + 1}</td>
+                    <td className={`border ${borderColor}`}>{score.name}</td>
+                    <td className={`border ${borderColor}`}>{score.date}</td>
+                    <td className={`border ${borderColor}`}>{score.time}</td>
+                    <td className={`border ${borderColor}`}>{score.gameName}</td>
+                    <td className={`border ${borderColor}`}>{score.content}</td>
+                  </tr>
+                </Link>
               )
             })}
           </tbody>
