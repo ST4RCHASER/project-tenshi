@@ -30,7 +30,6 @@ const Game = () => {
     }, [id])
     return (
         <Layout title="Viewer">
-            <div className="text-5xl">All scores list</div>
             {getScorebaord(id as string, score)}
             {getManagementBoard(id as string, score)}
         </Layout>

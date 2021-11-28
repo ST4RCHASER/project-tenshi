@@ -45,7 +45,7 @@ const IndexPage = () => {
   }, []);
   return (
     <Layout title="All scores list">
-      <div className="text-5xl">All scores list</div>
+      <div className="text-5xl ml-4">All scores list</div>
       <div className='text-center text-2xl bg-blue-50 rounded shadow-md mt-6'>
         <table className="table-auto w-full">
           <thead>
