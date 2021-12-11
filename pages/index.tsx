@@ -3,6 +3,7 @@ import Layout from '../components/Layout'
 import { addZeroToTime, getGameName, getSocket } from '../utils'
 import React, { useState, useEffect } from "react";
 import { GameState, Score } from '../utils';
+import ScoreCard from '../components/ScoreCard';
 const IndexPage = () => {
   const [scoreList, setScoreList] = useState<Score[]>([]);
   let socket = getSocket();
@@ -35,7 +36,8 @@ const IndexPage = () => {
           state: score.state,
           timer: score.timer,
           content: content,
-          name: score.name
+          name: score.name,
+          teams: score.teams
         }
         );
       }
@@ -45,8 +47,37 @@ const IndexPage = () => {
   }, []);
   return (
     <Layout title="All scores list">
-      <div className="text-5xl ml-4">All scores list</div>
-      <div className='text-center text-2xl bg-blue-50 rounded shadow-md mt-6'>
+      <div className="text-5xl ml-4 mb-8">All scores list</div>
+      <div className="mb-8 mt-16">
+        <div className="inline-block">
+          <div className="rounded-xl h-3 w-3 bg-blue-400 ml-4 inline-block"></div>
+          <div className="inline-block ml-2">Unknown</div>
+        </div>
+        <div className="inline-block">
+          <div className="rounded-xl h-3 w-3 bg-yellow-400 ml-4 inline-block"></div>
+          <div className="inline-block ml-2">Not Start</div>
+        </div>
+        <div className="inline-block">
+          <div className="rounded-xl h-3 w-3 bg-green-400 ml-4 inline-block"></div>
+          <div className="inline-block ml-2">Ingame</div>
+        </div>
+        <div className="inline-block">
+          <div className="rounded-xl h-3 w-3 bg-red-400 ml-4 inline-block"></div>
+          <div className="inline-block ml-2">Ended</div>
+        </div>
+        <Link href={'/new'}>
+          <button className='float-right bg-green-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-green-800 duration-100'>Add new</button>
+        </Link>
+      </div>
+      <div className="lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-2 ">
+        {scoreList.map((score: any, index) => {
+          return (
+            <ScoreCard data={{ score: score, index: index }} />
+          )
+        })}
+      </div>
+
+      {/* <div className='text-center text-2xl bg-blue-50 rounded shadow-md mt-6'>
         <table className="table-auto w-full">
           <thead>
             <tr>
@@ -90,7 +121,7 @@ const IndexPage = () => {
             })}
           </tbody>
         </table>
-      </div>
+      </div> */}
     </Layout>
   )
 }
