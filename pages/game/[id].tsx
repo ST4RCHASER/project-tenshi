@@ -9,16 +9,21 @@ const Game = () => {
     const router = useRouter()
     const { id } = router.query
     const [score, setScore] = useState<Score>()
+    let timer: any;
     useEffect(() => {
         if (!id) return;
-        setInterval(() => {
+        timer = setInterval(() => {
             socket.emit('score:single', { id: id });
         }, 500);
+        const exitingFunction = () => {
+            if (timer) clearInterval(timer)
+        };
+        router.events.on('routeChangeStart', exitingFunction);
         socket.on('score:single', (data) => {
-            setScore(data.score);
+            if (data.score.id == id) setScore(data.score);
         })
         socket.on('score:update', (data) => {
-            setScore(data.score);
+            if (data.score.id == id) setScore(data.score);
         })
         socket.on('team:update', (data) => {
             if (data.id == id) {
