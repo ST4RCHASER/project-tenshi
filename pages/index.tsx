@@ -4,20 +4,28 @@ import { addZeroToTime, getGameName, getSocket } from '../utils'
 import React, { useState, useEffect } from "react";
 import { GameState, Score } from '../utils';
 import ScoreCard from '../components/ScoreCard';
+import { useRouter } from 'next/router';
 const IndexPage = () => {
+  const router = useRouter()
   const [scoreList, setScoreList] = useState<Score[]>([]);
   let socket = getSocket();
   let rawScore: Score[] = [];
+  let timer: any;
   useEffect(() => {
     socket.on('client:welcome', data => {
       console.log(data);
       socket.emit('score:overall');
     });
-    setInterval(() => {
+    socket.emit('score:overall');
+    timer = setInterval(() => {
       if (socket) {
         socket.emit('score:overall');
       }
     }, 3000);
+    const exitingFunction = () => {
+      if (timer) clearInterval(timer)
+    };
+    router.events.on('routeChangeStart', exitingFunction);
     socket.on('score:overall', data => {
       console.log(data)
       rawScore = data.scores
@@ -66,7 +74,7 @@ const IndexPage = () => {
           <div className="inline-block ml-2">Ended</div>
         </div>
         <Link href={'/new'}>
-          <button className='float-right bg-green-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-green-800 duration-100'>Add new</button>
+          <button className='float-right bg-green-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-green-800 font-bold duration-100'>Add new</button>
         </Link>
       </div>
       <div className="lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-2 ">

@@ -9,24 +9,26 @@ const IndexPage = () => {
   const [teamList, setTeamList] = useState<String[]>([]);
   const [teamInput, setTeamInput] = useState('');
   let socket = getSocket();
-  let rawScore: Score[] = [];
   let isConnected = !socket.disconnected;
   const router = useRouter();
+  let isUnloaded = false;
   useEffect(() => {
     socket.on('client:welcome', data => {
       isConnected = true;
     });
     socket.on('score:create', data => {
       console.log('createion result:', data);
-      if (data.code == '201') {
+      if (data.code == '201' && !isUnloaded) {
         alert('Game created successfully');
-        router.push({
-          pathname: '/',
-        })
-      } else {
+        router.push('/');
+      } else if(!isUnloaded){
         alert('Game creation failed: ' + data.message);
       }
     });
+    const exitingFunction = () => {
+      isUnloaded = true;
+    };
+    router.events.on('routeChangeStart', exitingFunction);
   }, []);
   const createNew = async (event: BaseSyntheticEvent) => {
     event.preventDefault();
@@ -89,7 +91,7 @@ const IndexPage = () => {
               return (
                 <div key={index} className="mt-1 ml-4 grid grid-cols-10 gap-1 md:gap-2 lg:gap-1">
                   <div className='md:col-span-9 col-span-7'>{index + 1}. {name}</div>
-                  <button type='button' onClick={() => deleteTeam(index)} className="md:col-span-1 col-span-3 bg-red-400 hover:bg-red-500 duration-100 rounded-md text-base text-white">Delete</button>
+                  <button type='button' onClick={() => deleteTeam(index)} className="font-bold md:col-span-1 col-span-3 bg-red-400 hover:bg-red-500 duration-100 rounded-md text-base text-white">Delete</button>
                 </div>
               )
             }) : <p className='text-gray-600 text-center'> - No team added yet - </p>
@@ -97,9 +99,9 @@ const IndexPage = () => {
         </div>
         <div className="mt-10 ml-4 grid grid-cols-10 gap-1 md:gap-2 lg:gap-1">
           <input value={teamInput} onChange={e => { setTeamInput(e.currentTarget.value); }} type="text" className="rounded w-full md:col-span-9 col-span-7" placeholder='Type team name here then click add' />
-          <button onClick={addTeam} type='button' className="md:col-span-1 col-span-3 bg-blue-500 hover:bg-blue-600 duration-100 rounded-md text-white">Add new</button>
+          <button onClick={addTeam} type='button' className="font-bold md:col-span-1 col-span-3 bg-blue-500 hover:bg-blue-600 duration-100 rounded-md text-white">Add new</button>
         </div>
-        <button type='submit' className="col-span-1 bg-green-500 hover:bg-green-600 duration-100 rounded-md text-white px-6 py-2 float-right mt-10">Create this event now</button>
+        <button type='submit' className="font-bold col-span-1 bg-green-500 hover:bg-green-600 duration-100 rounded-md text-white px-6 py-2 float-right mt-10">Create this event now</button>
       </form>
     </Layout>
   )

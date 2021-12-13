@@ -10,23 +10,25 @@ const Game = () => {
     const { id } = router.query
     const [score, setScore] = useState<Score>()
     let timer: any;
+    let isUnloaded = false;
     useEffect(() => {
         if (!id) return;
         timer = setInterval(() => {
             socket.emit('score:single', { id: id });
         }, 500);
         const exitingFunction = () => {
+            isUnloaded = true;
             if (timer) clearInterval(timer)
         };
         router.events.on('routeChangeStart', exitingFunction);
         socket.on('score:single', (data) => {
-            if (data.score.id == id) setScore(data.score);
+            if (data.score.id == id && !isUnloaded) setScore(data.score);
         })
         socket.on('score:update', (data) => {
-            if (data.score.id == id) setScore(data.score);
+            if (data.score.id == id && !isUnloaded) setScore(data.score);
         })
         socket.on('team:update', (data) => {
-            if (data.id == id) {
+            if (data.id == id && !isUnloaded) {
                 let newScore: any = { ...score };
                 newScore.teams = data.teams;
                 setScore(newScore);
