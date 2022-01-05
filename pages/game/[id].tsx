@@ -4,6 +4,8 @@ import BasketBallScore from '../../components/BasketBallScore'
 import BasketBallManage from '../../components/BasketBallManage'
 import { addZeroToTime, GameType, getGameName, getSocket, Score } from '../../utils'
 import Layout from '../../components/Layout'
+import FootBallScore from '../../components/FootBallScore'
+import FootBallManage from '../../components/FootBallManage'
 let socket = getSocket();
 const Game = () => {
     const router = useRouter()
@@ -47,6 +49,9 @@ function getScorebaord(id: string, data: Score | undefined) {
     switch (data.gameType) {
         case GameType.BASKETBALL:
             return (<BasketBallScore id={id} data={data} />);
+        case GameType.FOOTBALL:
+            return (<FootBallScore id={id} data={data} />);
+
     }
 }
 function getManagementBoard(id: string, data: Score | undefined) {
@@ -54,6 +59,8 @@ function getManagementBoard(id: string, data: Score | undefined) {
     switch (data.gameType) {
         case GameType.BASKETBALL:
             return (<div className='mt-10'><BasketBallManage id={id} data={data} socket={socket} /></div>);
+        case GameType.FOOTBALL:
+            return (<div className='mt-10'><FootBallManage id={id} data={data} socket={socket} /></div>);
     }
 }
 export default Game

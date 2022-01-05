@@ -76,6 +76,7 @@ const IndexPage = () => {
             <select id='gameType' name='gameType' className="form-select px-4 py-3 rounded w-full">
               <option disabled value="0">Select game type</option>
               <option value="1">Basketball</option>
+              <option value="2">FootBall</option>
             </select>
           </div>
           <div className="mt-5">
