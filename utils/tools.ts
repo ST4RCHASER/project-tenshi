@@ -7,6 +7,8 @@ export function getGameName(gameType: GameType): string {
     switch (gameType) {
         case GameType.BASKETBALL:
             return 'Basketball'
+        case GameType.FOOTBALL:
+            return 'Football'
         default:
             return 'Unknown'
     }
