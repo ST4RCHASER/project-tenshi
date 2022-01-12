@@ -38,14 +38,14 @@ const Game = () => {
         })
     }, [id])
     return (
-        <Layout title="Viewer">
+        <Layout title="กระดานคะแนน">
             {getScorebaord(id as string, score)}
             {getManagementBoard(id as string, score)}
         </Layout>
     )
 }
 function getScorebaord(id: string, data: Score | undefined) {
-    if (!data) return (<div>Loading...</div>)
+    if (!data) return (<div>กำลังโหลด...</div>)
     switch (data.gameType) {
         case GameType.BASKETBALL:
             return (<BasketBallScore id={id} data={data} />);
@@ -55,7 +55,7 @@ function getScorebaord(id: string, data: Score | undefined) {
     }
 }
 function getManagementBoard(id: string, data: Score | undefined) {
-    if (!data) return (<div>Loading...</div>)
+    if (!data) return (<div>กำลังโหลด...</div>)
     switch (data.gameType) {
         case GameType.BASKETBALL:
             return (<div className='mt-10'><BasketBallManage id={id} data={data} socket={socket} /></div>);

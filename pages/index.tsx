@@ -54,27 +54,27 @@ const IndexPage = () => {
     });
   }, []);
   return (
-    <Layout title="All scores list">
-      <div className="text-5xl ml-4 mb-8">All scores list</div>
+    <Layout title="รายชื่อคะแนนทั้งหมด">
+      <div className="text-5xl ml-4 mb-8">รายชื่อคะแนนทั้งหมด</div>
       <div className="mb-8 mt-16">
         <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-blue-400 ml-4 inline-block"></div>
-          <div className="inline-block ml-2">Unknown</div>
+          <div className="inline-block ml-2">ไม่ทราบ</div>
         </div>
         <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-yellow-400 ml-4 inline-block"></div>
-          <div className="inline-block ml-2">Not Start</div>
+          <div className="inline-block ml-2">ยังไม่เริ่ม</div>
         </div>
         <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-green-400 ml-4 inline-block"></div>
-          <div className="inline-block ml-2">Ingame</div>
+          <div className="inline-block ml-2">กำลังเล่น</div>
         </div>
         <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-red-400 ml-4 inline-block"></div>
-          <div className="inline-block ml-2">Ended</div>
+          <div className="inline-block ml-2">จบแล้ว</div>
         </div>
         <Link href={'/new'}>
-          <button className='float-right bg-green-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-green-800 font-bold duration-100'>Add new</button>
+          <button className='float-right bg-green-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-green-800 font-bold duration-100'>เพิ่มเกมใหม่</button>
         </Link>
       </div>
       <div className="lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-2 ">

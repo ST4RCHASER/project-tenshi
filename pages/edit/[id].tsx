@@ -70,34 +70,35 @@ const IndexPage = () => {
     }
   };
   return (
-    <Layout title="Edit an game">
-      <div className="text-5xl ml-4 mb-8">Edit an game</div>
+    <Layout title="แก้ไขเกม">
+      <div className="text-5xl ml-4 mb-8">แก้ไขเกม</div>
       <form className='px-10 text-gray-600' onSubmit={saveFrom}>
         <div className="inline float-right">
           <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={deleteScore}>
-            Delete this game
+            ลบเกมนี้
           </button>
         </div>
-        <div className='mt-14 text-2xl'>	• Game Infomation</div>
+        <div className='mt-14 text-2xl'>	• ข้อมูลเกม</div>
         <hr />
         <div className="ml-4">
           <div className="mt-3">
-            <p className='pb-1'>Event Name:</p>
+            <p className='pb-1'>ชื่อกิจกรรมนี้:</p>
             <input id="name" name="name" value={formName} onChange={e => setFormName(e.target.value)} type="text" className="rounded w-full" />
           </div>
           <div className="mt-5">
-            <p className='pb-1'>Game Type:</p>
+            <p className='pb-1'>รูปแบบกีฬา:</p>
             <select disabled id='gameType' name='gameType' className="form-select px-4 py-3 rounded w-full">
-              <option disabled value="0">Select game type</option>
-              <option value="1">Basketball</option>
+              <option disabled value="0">โปรดเลือก</option>
+              <option value="1">บาสเกตบอล</option>
+              <option value="2">ฟุตบอล</option>
             </select>
           </div>
           <div className="mt-5">
-            <p className='pb-1'>Start Date&Time:</p>
+            <p className='pb-1'>วันและเวลาที่เริ่ม:</p>
             <input id='stamp' name='stamp' type="datetime-local" onChange={e => setFormDate(e.target.value)} value={formDate as any} className="rounded w-full" />
           </div>
         </div>
-        <div className='mt-12 text-2xl'>	• Team Lists ({teamList.length})</div>
+        <div className='mt-12 text-2xl'>	• รายชื่อทีม ({teamList.length})</div>
         <hr />
         <div className='ml-4 text-xl mt-4'>
           {
@@ -107,10 +108,10 @@ const IndexPage = () => {
                   <div className='md:col-span-9 col-span-7'>{index + 1}. {name}</div>
                 </div>
               )
-            }) : <p className='text-gray-600 text-center'> - No team added yet - </p>
+            }) : <p className='text-gray-600 text-center'> - ไม่มีทีมในตอนนี้ - </p>
           }
         </div>
-        <button type='submit' className="col-span-1 bg-green-500 hover:bg-green-600 duration-100 rounded-md font-bold text-white px-6 py-2 float-right mt-10">Save</button>
+        <button type='submit' className="col-span-1 bg-green-500 hover:bg-green-600 duration-100 rounded-md font-bold text-white px-6 py-2 float-right mt-10">บันทึก</button>
       </form>
     </Layout>
   )

@@ -61,30 +61,30 @@ const IndexPage = () => {
     setTeamList(newList);
   };
   return (
-    <Layout title="Create new game">
-      <div className="text-5xl ml-4 mb-8">Create new game</div>
+    <Layout title="สร้างเกมใหม่">
+      <div className="text-5xl ml-4 mb-8">สร้างเกมใหม่</div>
       <form className='px-10 text-gray-600' onSubmit={createNew}>
-        <div className='mt-14 text-2xl'>	• Game Infomation</div>
+        <div className='mt-14 text-2xl'>	• ข้อมูลเกม</div>
         <hr />
         <div className="ml-4">
           <div className="mt-3">
-            <p className='pb-1'>Event Name:</p>
+            <p className='pb-1'>ชื่อกิจกรรมนี้:</p>
             <input id="name" name="name" type="text" className="rounded w-full" />
           </div>
           <div className="mt-5">
-            <p className='pb-1'>Game Type:</p>
+            <p className='pb-1'>รูปแบบกีฬา:</p>
             <select id='gameType' name='gameType' className="form-select px-4 py-3 rounded w-full">
-              <option disabled value="0">Select game type</option>
-              <option value="1">Basketball</option>
-              <option value="2">FootBall</option>
+              <option disabled value="0">โปรดเลือก</option>
+              <option value="1">บาสเกตบอล</option>
+              <option value="2">ฟุตบอล</option>
             </select>
           </div>
           <div className="mt-5">
-            <p className='pb-1'>Start Date&Time:</p>
+            <p className='pb-1'>วันและเวลาที่เริ่ม:</p>
             <input id='stamp' name='stamp' type="datetime-local" className="rounded w-full" />
           </div>
         </div>
-        <div className='mt-12 text-2xl'>	• Team Lists ({teamList.length})</div>
+        <div className='mt-12 text-2xl'>	• รายชื่อทีม ({teamList.length})</div>
         <hr />
         <div className='ml-4 text-xl mt-4'>
           {
@@ -95,14 +95,14 @@ const IndexPage = () => {
                   <button type='button' onClick={() => deleteTeam(index)} className="font-bold md:col-span-1 col-span-3 bg-red-400 hover:bg-red-500 duration-100 rounded-md text-base text-white">Delete</button>
                 </div>
               )
-            }) : <p className='text-gray-600 text-center'> - No team added yet - </p>
+            }) : <p className='text-gray-600 text-center'> - ไม่มีทีมในตอนนี้ - </p>
           }
         </div>
         <div className="mt-10 ml-4 grid grid-cols-10 gap-1 md:gap-2 lg:gap-1">
-          <input value={teamInput} onChange={e => { setTeamInput(e.currentTarget.value); }} type="text" className="rounded w-full md:col-span-9 col-span-7" placeholder='Type team name here then click add' />
-          <button onClick={addTeam} type='button' className="font-bold md:col-span-1 col-span-3 bg-blue-500 hover:bg-blue-600 duration-100 rounded-md text-white">Add new</button>
+          <input value={teamInput} onChange={e => { setTeamInput(e.currentTarget.value); }} type="text" className="rounded w-full md:col-span-9 col-span-7" placeholder='พิมพ์ชื่อทีมและกด "เพิ่มทีมใหม่"' />
+          <button onClick={addTeam} type='button' className="font-bold md:col-span-1 col-span-3 bg-blue-500 hover:bg-blue-600 duration-100 rounded-md text-white">เพิ่มทีมใหม่</button>
         </div>
-        <button type='submit' className="font-bold col-span-1 bg-green-500 hover:bg-green-600 duration-100 rounded-md text-white px-6 py-2 float-right mt-10">Create this event now</button>
+        <button type='submit' className="font-bold col-span-1 bg-green-500 hover:bg-green-600 duration-100 rounded-md text-white px-6 py-2 float-right mt-10">สร้างเกมนี้</button>
       </form>
     </Layout>
   )

@@ -6,23 +6,23 @@ export function addZeroToTime(time: number): string | number {
 export function getGameName(gameType: GameType): string {
     switch (gameType) {
         case GameType.BASKETBALL:
-            return 'Basketball'
+            return 'บาสเกตบอล'
         case GameType.FOOTBALL:
-            return 'Football'
+            return 'ฟุตบอล'
         default:
-            return 'Unknown'
+            return 'ไม่ทราบ'
     }
 }
 export function getStateName(state: GameState): string {
     switch (state) {
         case GameState.NOT_START:
-            return 'Not Start'
+            return 'ยังไม่เริ่ม'
         case GameState.INGAME:
-            return 'Ingame'
+            return 'กำลังเล่น'
         case GameState.ENDED:
-            return 'Ended'
+            return 'จบแล้ว'
         default:
-            return 'Unknown'
+            return 'ไม่ทราบ'
     }
 }
 export function getBGStateColor(state: GameState): string {

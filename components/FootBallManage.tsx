@@ -20,7 +20,7 @@ const FootBallManage = ({ id, data, socket }: Props) => {
 
     }, [])
     return (<div>
-        <div className="text-3xl sm:text-5xl mt-10 ml-4 pb-4">Management</div>
+        <div className="text-3xl sm:text-5xl mt-10 ml-4 pb-4">จัดการ</div>
         <div className='grid grid-cols-3'>
             <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-4 text-4xl sm:text-4xl" onClick={() => { setA(0, data.teams[0].score + 1) }}>
                 เริ่มเวลาการแข่งขัน

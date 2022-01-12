@@ -17,7 +17,7 @@ const BasketBallManage = ({ id, data, socket }: Props) => {
 
     }, [])
     return (<div>
-        <div className="text-3xl sm:text-5xl mt-10 ml-4">Management</div>
+        <div className="text-3xl sm:text-5xl mt-10 ml-4">จัดการ</div>
         <div className='grid grid-cols-2 p-6 md:gap-x-0 sm:grid-cols-3'>
             <div>
                 <button className="bg-red-500 w-1/2 hover:bg-red-700 text-white font-bold py-3 px-4 text-4xl sm:text-6xl" onClick={() => { setScore(0, data.teams[0].score - 1) }}>
