@@ -16,7 +16,7 @@ const ScoreCard = ({ data }: any) => (
             <h1 className="font-bold text-3xl mb-1">{data.score.name}</h1>
             <Link href={`/edit/${data.score.id}`}><div className='absolute top-0 right-0 text-white px-3 py-2 rounded-tr-xl bg-blue-500  hover:bg-blue-600 duration-100 font-bold'>แก้ไข</div></Link>
             <p className={"text-white inline rounded text-bold px-3 py-0.5 text-sm " + getBGStateColor(data.score.state)}>{data.score.gameName} • {getStateName(data.score.state)}</p>
-            <p className="text-gray-700 mx-1 my-1 text-base"> {data.score.date} at {data.score.time}</p>
+            <p className="text-gray-700 mx-1 my-1 text-base"> {data.score.date} {data.score.time}</p>
             {/* {data.score.teams.map((team: Team, index: any) => {
             return [
                 (<div className="grid gap-1 grid-cols-2 text-center"><div>{team.name}</div> <div>test</div></div>),
