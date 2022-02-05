@@ -8,4 +8,5 @@ export interface Score {
     teams: Team[],
     timer: number,
     gameMeta?: any,
+    timerState: number
 }

@@ -31,9 +31,18 @@ export function getBGStateColor(state: GameState): string {
             return 'bg-yellow-400'
         case GameState.INGAME:
             return 'bg-green-400'
-        case GameState.INGAME:
+        case GameState.ENDED:
             return 'bg-red-400'
         default:
             return 'bg-blue-400'
     }
+}
+export function toHHMMSS (sec_num: number): string {
+    var hours   = Math.floor(sec_num / 3600)
+    var minutes = Math.floor(sec_num / 60) % 60
+    var seconds = sec_num % 60
+    return [hours,minutes,seconds]
+        .map(v => v < 10 ? "0" + v : v)
+        .filter((v,i) => v !== "00" || i > 0)
+        .join(":")
 }

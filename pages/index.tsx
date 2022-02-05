@@ -21,7 +21,7 @@ const IndexPage = () => {
       if (socket) {
         socket.emit('score:overall');
       }
-    }, 3000);
+    }, 50);
     const exitingFunction = () => {
       if (timer) clearInterval(timer)
     };

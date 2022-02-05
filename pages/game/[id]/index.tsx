@@ -1,11 +1,15 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import BasketBallScore from '../../components/BasketBallScore'
-import BasketBallManage from '../../components/BasketBallManage'
-import { addZeroToTime, GameType, getGameName, getSocket, Score } from '../../utils'
-import Layout from '../../components/Layout'
-import FootBallScore from '../../components/FootBallScore'
-import FootBallManage from '../../components/FootBallManage'
+import BasketBallScore from '../../../components/BasketBallScore'
+import BasketBallManage from '../../../components/BasketBallManage'
+import { addZeroToTime, GameType, getGameName, getSocket, Score } from '../../../utils'
+import Layout from '../../../components/Layout'
+import FootBallScore from '../../../components/FootBallScore'
+import FootBallManage from '../../../components/FootBallManage'
+//@ts-ignore
+import Button from "@material-tailwind/react/Button";
+import Link from 'next/link'
+import BasketBallScoreTotal from '../../../components/BasketBallScoreTotal'
 let socket = getSocket();
 const Game = () => {
     const router = useRouter()
@@ -17,7 +21,7 @@ const Game = () => {
         if (!id) return;
         timer = setInterval(() => {
             socket.emit('score:single', { id: id });
-        }, 500);
+        }, 50);
         const exitingFunction = () => {
             isUnloaded = true;
             if (timer) clearInterval(timer)
@@ -45,20 +49,20 @@ const Game = () => {
     )
 }
 function getScorebaord(id: string, data: Score | undefined) {
+    console.log('Requesting scoreboard for id: ' + id);
     if (!data) return (<div>กำลังโหลด...</div>)
     switch (data.gameType) {
         case GameType.BASKETBALL:
-            return (<BasketBallScore id={id} data={data} />);
+            return (<BasketBallScoreTotal id={id} data={data} socket={socket} />);
         case GameType.FOOTBALL:
             return (<FootBallScore id={id} data={data} />);
-
     }
 }
 function getManagementBoard(id: string, data: Score | undefined) {
     if (!data) return (<div>กำลังโหลด...</div>)
     switch (data.gameType) {
-        case GameType.BASKETBALL:
-            return (<div className='mt-10'><BasketBallManage id={id} data={data} socket={socket} /></div>);
+        case GameType.BASKETBALL_QUARTER:
+        // return (<div className='mt-10'><BasketBallManage id={id} data={data} socket={socket} /></div>);
         case GameType.FOOTBALL:
             return (<div className='mt-10'><FootBallManage id={id} data={data} socket={socket} /></div>);
     }
