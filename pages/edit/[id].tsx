@@ -13,6 +13,7 @@ const IndexPage = () => {
   const { id } = router.query
   const [formName, setFormName] = useState<string>('');
   const [formDate, setFormDate] = useState<any>(new Date().getTime());
+  const [formType, setFormType] = useState<any>(0);
   let isUnloaded = false;
   useEffect(() => {
     console.log(id)
@@ -40,6 +41,7 @@ const IndexPage = () => {
         isConnected = true;
         if (data.score.id == id) {
           setFormName(data.score.name);
+          setFormType(data.score.gameType);
           setFormDate(new Date(data.score.stamp).toISOString().split('.')[0]);
           for (const team of data.score.teams) {
             setTeamList(teamList => [...teamList, team.name]);
@@ -87,10 +89,14 @@ const IndexPage = () => {
           </div>
           <div className="mt-5">
             <p className='pb-1'>รูปแบบกีฬา:</p>
-            <select disabled id='gameType' name='gameType' className="form-select px-4 py-3 rounded w-full">
+            <select disabled id='gameType' name='gameType' value={formType} className="form-select px-4 py-3 rounded w-full">
               <option disabled value="0">โปรดเลือก</option>
               <option value="1">บาสเกตบอล</option>
               <option value="2">ฟุตบอล</option>
+              <option value="4">วอลเลย์บอล</option>
+              <option value="6">เปตอง</option>
+              <option value="7">ตะกร้อ</option>
+              <option value="9">แบดมินตัน</option>
             </select>
           </div>
           <div className="mt-5">

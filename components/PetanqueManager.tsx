@@ -9,7 +9,7 @@ type Props = {
 }
 //@ts-ignore
 import Button from "@material-tailwind/react/Button";
-const FootBallManage = ({ id, data, socket }: Props) => {
+const PetanqueManager = ({ id, data, socket }: Props) => {
     let setScore = (teamSlot: number, newScore: number) => {
         data.teams[teamSlot].score = newScore;
         data.state = 3;
@@ -61,31 +61,18 @@ const FootBallManage = ({ id, data, socket }: Props) => {
             >
                 หยุดเวลาการแข่งขัน
             </Button>
-            {
-                (data as any).gameMeta.part == 0 ? <Button
-                    color="indigo"
-                    buttonType="filled"
-                    size="lg"
-                    rounded={false}
-                    block={true}
-                    iconOnly={false}
-                    ripple="light"
-                    onClick={() => { setRoundPart(1) }}
-                >
-                    จบครึ่งแรก
-                </Button> : <Button
-                    color="indigo"
-                    buttonType="filled"
-                    size="lg"
-                    rounded={false}
-                    block={true}
-                    iconOnly={false}
-                    ripple="light"
-                    onClick={() => { setEndGame() }}
-                >
-                    เสร็จสิ้นการแข่งขัน
-                </Button>
-            }
+            <Button
+                color="indigo"
+                buttonType="filled"
+                size="lg"
+                rounded={false}
+                block={true}
+                iconOnly={false}
+                ripple="light"
+                onClick={() => { setEndGame() }}
+            >
+                เสร็จสิ้นการแข่งขัน
+            </Button>
         </div>
         <div className='grid grid-cols-2 p-6 md:gap-x-0 gap-4'>
             <div>
@@ -123,4 +110,4 @@ const FootBallManage = ({ id, data, socket }: Props) => {
         </Link> <br /></div>);
 }
 
-export default FootBallManage
+export default PetanqueManager

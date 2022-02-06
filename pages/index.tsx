@@ -57,10 +57,10 @@ const IndexPage = () => {
     <Layout title="รายชื่อคะแนนทั้งหมด">
       <div className="text-5xl ml-4 mb-8">รายชื่อคะแนนทั้งหมด</div>
       <div className="mb-8 mt-16">
-        <div className="inline-block">
+        {/* <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-blue-400 ml-4 inline-block"></div>
           <div className="inline-block ml-2">ไม่ทราบ</div>
-        </div>
+        </div> */}
         <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-yellow-400 ml-4 inline-block"></div>
           <div className="inline-block ml-2">ยังไม่เริ่ม</div>

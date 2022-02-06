@@ -24,8 +24,9 @@ const ScoreCard = ({ data }: any) => (
             ]
         })} */}
             <p className='mb-1 mt-3 mx-1'>ข้อมูลทีม:</p>
-            <div className="grid gap-1 grid-cols-3 text-center"><div className='font-bold'>{data.score?.teams[0].name}</div> <div></div> <div className='font-bold'>{data.score?.teams[1]?.name}</div></div>
-            <div className="grid gap-1 grid-cols-3 text-center"><div className='text-xl'>{data.score?.teams[0].score}</div> <div className='text-xl font-bold'>{data.score.timer}</div> <div className='text-xl'>{data.score?.teams[1]?.score}</div></div>
+            <div className="grid gap-1 grid-cols-3 text-center"><div className='font-bold'>{data.score?.teams[0].name}</div> <div>vs</div> <div className='font-bold'>{data.score?.teams[1]?.name}</div></div>
+            {/* <div className="grid gap-1 grid-cols-3 text-center"><div className='font-bold'>{data.score?.teams[0].name}</div> <div></div> <div className='font-bold'>{data.score?.teams[1]?.name}</div></div> */}
+            {/* <div className="grid gap-1 grid-cols-3 text-center"><div className='text-xl'>{data.score?.teams[0].score}</div> <div className='text-xl font-bold'>{data.score.timer}</div> <div className='text-xl'>{data.score?.teams[1]?.score}</div></div> */}
         </div>
     </Link >
 )

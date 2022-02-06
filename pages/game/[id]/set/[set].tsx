@@ -6,6 +6,12 @@ import { addZeroToTime, GameType, getGameName, getSocket, Score } from '../../..
 import Layout from '../../../../components/Layout'
 import FootBallScore from '../../../../components/FootBallScore'
 import FootBallManage from '../../../../components/FootBallManage'
+import VolleyballScore from '../../../../components/VolleyballScore'
+import VolleyballScoreManage from '../../../../components/VolleyballScoreManage'
+import BadmintonScore from '../../../../components/BadmintonScore'
+import MuzzleScore from '../../../../components/MuzzleScore'
+import BadmintonScoreManage from '../../../../components/BadmintonScoreManage'
+import MuzzleScoreManage from '../../../../components/MuzzleScoreManage'
 let socket = getSocket();
 const Game = () => {
     const router = useRouter()
@@ -56,6 +62,12 @@ function getScorebaord(id: string, score: Score, set: number) {
             return (<BasketBallScore id={id} data={score} set={set} />);
         case GameType.FOOTBALL:
             return (<FootBallScore id={id} data={score} />);
+        case GameType.VOLLEYBALL:
+            return (<VolleyballScore id={id} data={score} set={set} />)
+        case GameType.BADMINTON:
+            return (<BadmintonScore id={id} data={score} set={set} />)
+        case GameType.MUZZLE:
+            return (<MuzzleScore id={id} data={score} set={set} />)
         case GameType.LOADING:
             return (<div>กำลังโหลด...</div>)
         default: return (<div><b>Load viewer failed</b>: Unknown gameType ID: {score.gameType || '#UNKNOWN#'}, please try update tenshi web to latest version</div>)
@@ -68,6 +80,12 @@ function getManagementBoard(id: string, score: Score, set: number) {
             return (<div className='mt-10'><BasketBallManage id={id} data={score} set={set} socket={socket} /></div>);
         case GameType.FOOTBALL:
             return (<div className='mt-10'><FootBallManage id={id} data={score} socket={socket} /></div>);
+        case GameType.VOLLEYBALL:
+            return (<div className='mt-10'><VolleyballScoreManage id={id} data={score} socket={socket} set={set} /></div>);
+        case GameType.BADMINTON:
+            return (<div className='mt-10'><BadmintonScoreManage id={id} data={score} socket={socket} set={set} /></div>);
+        case GameType.MUZZLE:
+            return (<div className='mt-10'><MuzzleScoreManage id={id} data={score} socket={socket} set={set} /></div>);
         case GameType.LOADING:
             return (<div>กำลังโหลด...</div>)
         default: return (<div><b>Load controller failed</b>: Unknown gameType ID: {score.gameType || '#UNKNOWN#'}, please try update tenshi web to latest version</div>)

@@ -9,6 +9,14 @@ export function getGameName(gameType: GameType): string {
             return 'บาสเกตบอล'
         case GameType.FOOTBALL:
             return 'ฟุตบอล'
+        case GameType.VOLLEYBALL:
+            return 'วอลเลย์บอล'
+        case GameType.PETANQUE:
+            return 'เปตอง'
+        case GameType.MUZZLE:
+            return 'ตะกร้อ'
+        case GameType.BADMINTON:
+            return 'แบดมินตัน'
         default:
             return 'ไม่ทราบ'
     }
@@ -37,12 +45,12 @@ export function getBGStateColor(state: GameState): string {
             return 'bg-blue-400'
     }
 }
-export function toHHMMSS (sec_num: number): string {
-    var hours   = Math.floor(sec_num / 3600)
+export function toHHMMSS(sec_num: number): string {
+    var hours = Math.floor(sec_num / 3600)
     var minutes = Math.floor(sec_num / 60) % 60
     var seconds = sec_num % 60
-    return [hours,minutes,seconds]
+    return [hours, minutes, seconds]
         .map(v => v < 10 ? "0" + v : v)
-        .filter((v,i) => v !== "00" || i > 0)
+        .filter((v, i) => v !== "00" || i > 0)
         .join(":")
 }

@@ -10,6 +10,12 @@ import FootBallManage from '../../../components/FootBallManage'
 import Button from "@material-tailwind/react/Button";
 import Link from 'next/link'
 import BasketBallScoreTotal from '../../../components/BasketBallScoreTotal'
+import VolleyballScoreTotal from '../../../components/VolleyballScoreTotal'
+import PetanqueScore from '../../../components/PetanqueScore'
+import PetanqueManager from '../../../components/PetanqueManager'
+import BadmintonScore from '../../../components/BadmintonScore'
+import BadmintonScoreTotal from '../../../components/BadmintonScoreTotal'
+import MuzzleScoreTotal from '../../../components/MuzzleScoreTotal'
 let socket = getSocket();
 const Game = () => {
     const router = useRouter()
@@ -56,6 +62,14 @@ function getScorebaord(id: string, data: Score | undefined) {
             return (<BasketBallScoreTotal id={id} data={data} socket={socket} />);
         case GameType.FOOTBALL:
             return (<FootBallScore id={id} data={data} />);
+        case GameType.VOLLEYBALL:
+            return (<VolleyballScoreTotal id={id} data={data} socket={socket} />)
+        case GameType.PETANQUE:
+            return (<PetanqueScore id={id} data={data} />)
+        case GameType.BADMINTON:
+            return (<BadmintonScoreTotal id={id} data={data} socket={socket} />)
+        case GameType.MUZZLE:
+            return (<MuzzleScoreTotal id={id} data={data} socket={socket} />)
     }
 }
 function getManagementBoard(id: string, data: Score | undefined) {
@@ -65,6 +79,12 @@ function getManagementBoard(id: string, data: Score | undefined) {
         // return (<div className='mt-10'><BasketBallManage id={id} data={data} socket={socket} /></div>);
         case GameType.FOOTBALL:
             return (<div className='mt-10'><FootBallManage id={id} data={data} socket={socket} /></div>);
+        case GameType.PETANQUE:
+            return (<div className='mt-10'><PetanqueManager id={id} data={data} socket={socket} /></div>);
+        case GameType.BADMINTON:
+            // return (<div>BADMINTON</div>)
+        case GameType.MUZZLE:
+            // return (<div>MUZZLE</div>)
     }
 }
 export default Game

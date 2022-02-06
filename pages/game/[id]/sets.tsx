@@ -33,9 +33,9 @@ const Sets = () => {
     }, [id])
     return (
         <Layout title="กระดานคะแนน">
-            <div className='text-5xl mb-4'>รายการควอเตอร์</div>
+            <div className='text-5xl mb-4'>รายการ{typeof meta != 'undefined' && typeof (meta as any).quarters != 'undefined' ? 'ควอเตอร์ ' : 'เซ็ท '}</div>
             <div className='grid grid-cols-2 gap-3'>
-                {(meta as any)?.quarters?.map((object: any, i: number) => {
+                {((meta as any)?.quarters ? (meta as any)?.quarters : (meta as any)?.sets)?.map((object: any, i: number) => {
                     return (<Link href={`/game/${id}/set/${object.id}`}>
                         <Button
                             color="lightGreen"

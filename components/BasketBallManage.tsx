@@ -83,7 +83,7 @@ const BasketBallManage = ({ id, data, socket, set }: Props) => {
                 จบควอเตอร์
             </Button>
         </div>
-        <div className='grid grid-cols-2 p-6 md:gap-x-0 sm:grid-cols-3'>
+        <div className='grid grid-cols-2 p-6 md:gap-x-0 gap-4'>
             <div>
                 <button className="bg-red-500 w-1/2 hover:bg-red-700 text-white font-bold py-3 px-4 text-4xl sm:text-6xl" onClick={() => { setScore(0, data.gameMeta.quarters[set - 1].teams[0].score - 1) }}>
                     -1
@@ -92,8 +92,8 @@ const BasketBallManage = ({ id, data, socket, set }: Props) => {
                     +1
                 </button>
             </div>
-            <div className='hidden sm:block'></div>
-            <div className='w-full sm:mt-2'>
+           
+            <div className='w-full '>
                 <button className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 text-4xl sm:text-6xl" onClick={() => { setScore(1, data.gameMeta.quarters[set - 1].teams[1].score - 1) }}>
                     -1
                 </button>
@@ -109,8 +109,8 @@ const BasketBallManage = ({ id, data, socket, set }: Props) => {
                     +2
                 </button>
             </div>
-            <div className='hidden sm:block'></div>
-            <div className='w-full sm:mt-2'>
+           
+            <div className='w-full '>
                 <button className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 text-4xl sm:text-6xl" onClick={() => { setScore(1, data.gameMeta.quarters[set - 1].teams[1].score - 2) }}>
                     -2
                 </button>
@@ -126,8 +126,8 @@ const BasketBallManage = ({ id, data, socket, set }: Props) => {
                     +3
                 </button>
             </div>
-            <div className='hidden sm:block'></div>
-            <div className='w-full sm:mt-2'>
+           
+            <div className='w-full '>
                 <button className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 text-4xl sm:text-6xl" onClick={() => { setScore(1, data.gameMeta.quarters[set - 1].teams[1].score - 3) }}>
                     -3
                 </button>
