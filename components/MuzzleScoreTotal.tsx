@@ -17,8 +17,9 @@ type Props = {
     id: string
     data: Score
     socket: Socket
+    isAdmin: boolean
 }
-const MuzzleScoreTotal = ({ id, data, socket }: Props) => {
+const MuzzleScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
     const router = useRouter()
     const [teamAScore, setTeamAScore] = useState<number>(0)
     const [teamBScore, setTeamBScore] = useState<number>(0)
@@ -36,7 +37,7 @@ const MuzzleScoreTotal = ({ id, data, socket }: Props) => {
         let score_b = 0;
         //Calc score by set score more than or not
         for (const set of data.gameMeta.sets) {
-            if(set.teams[0].score == set.teams[1].score) continue;
+            if (set.teams[0].score == set.teams[1].score) continue;
             if (set.teams[0].score > set.teams[1].score) {
                 score_a += 1;
             } else {
@@ -104,9 +105,40 @@ const MuzzleScoreTotal = ({ id, data, socket }: Props) => {
             data.state == 4 ? (
                 <div>
                     <div className='flex flex-col items-center justify-center text-3xl mb-3 mt-4'>การแข่งขันเกมนี้จบลงแล้ว</div>
-                    <Link href={`/game/${id}/sets`}>
+                    <div className='grid grid-cols-2 gap-4 mt-4'>
+                        <Link href={'/'}>
+                            <Button
+                                color="green"
+                                buttonType="filled"
+                                size="lg"
+                                rounded={false}
+                                block={true}
+                                iconOnly={false}
+                                ripple="light"
+                            >
+                                รายการทั้งหมด
+                            </Button>
+                        </Link>
+                        <Link href={`/game/${id}/sets`}>
+                            <Button
+                                color="indigo"
+                                buttonType="filled"
+                                size="lg"
+                                rounded={false}
+                                block={true}
+                                iconOnly={false}
+                                ripple="light"
+                            >
+                                ตรวจสอบเซ็ต
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+            ) : !isAdmin ? '' : (
+                <div className='grid grid-cols-3 gap-4 mt-4'>
+                    <Link href={'/'}>
                         <Button
-                            color="indigo"
+                            color="green"
                             buttonType="filled"
                             size="lg"
                             rounded={false}
@@ -114,12 +146,9 @@ const MuzzleScoreTotal = ({ id, data, socket }: Props) => {
                             iconOnly={false}
                             ripple="light"
                         >
-                            ตรวจสอบเซ็ต
+                            รายการทั้งหมด
                         </Button>
                     </Link>
-                </div>
-            ) : (
-                <div className='grid grid-cols-2 gap-4 mt-4'>
                     <Link href={`${id}/sets`}>
                         <Button
                             color="indigo"

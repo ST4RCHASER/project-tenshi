@@ -36,7 +36,20 @@ const FootBallManage = ({ id, data, socket }: Props) => {
     }, [])
     return (data.state != 4 ? <div>
         <div className="text-3xl sm:text-5xl mt-10 ml-4 pb-4">จัดการ</div>
-        <div className='grid grid-cols-3 gap-4'>
+        <div className='grid grid-cols-4 gap-4'>
+            <Link href={'/'}>
+                <Button
+                    color="orange"
+                    buttonType="filled"
+                    size="lg"
+                    rounded={false}
+                    block={true}
+                    iconOnly={false}
+                    ripple="light"
+                >
+                    รายการทั้งหมด
+                </Button>
+            </Link>
             <Button
                 color="lightGreen"
                 buttonType="filled"
@@ -96,7 +109,7 @@ const FootBallManage = ({ id, data, socket }: Props) => {
                     +1
                 </button>
             </div>
-           
+
             <div className='w-full '>
                 <button className="w-1/2 bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 text-4xl sm:text-6xl" onClick={() => { setScore(1, data.teams[1].score - 1) }}>
                     -1

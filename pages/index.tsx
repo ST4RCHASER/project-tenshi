@@ -11,7 +11,15 @@ const IndexPage = () => {
   let socket = getSocket();
   let rawScore: Score[] = [];
   let timer: any;
+  let [isAdmin, setIsAdmin] = useState(false);
+  let isUnloaded = false;
+  let submitPassword = (password: string) => {
+    if (!isUnloaded) socket.emit('admin:submit', { password: password });
+  };
   useEffect(() => {
+    socket.on('admin:submit', data => {
+      if(!isUnloaded) alert(data.message);
+    });
     socket.on('client:welcome', data => {
       console.log(data);
       socket.emit('score:overall');
@@ -23,11 +31,13 @@ const IndexPage = () => {
       }
     }, 50);
     const exitingFunction = () => {
+      isUnloaded = true;
       if (timer) clearInterval(timer)
     };
     router.events.on('routeChangeStart', exitingFunction);
     socket.on('score:overall', data => {
       console.log(data)
+      setIsAdmin(!!data.admin);
       rawScore = data.scores
       let submitScore: any[] = [];
       for (const score of rawScore) {
@@ -73,14 +83,25 @@ const IndexPage = () => {
           <div className="rounded-xl h-3 w-3 bg-red-400 ml-4 inline-block"></div>
           <div className="inline-block ml-2">จบแล้ว</div>
         </div>
-        <Link href={'/new'}>
-          <button className='float-right bg-green-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-green-800 font-bold duration-100'>เพิ่มเกมใหม่</button>
-        </Link>
+        {
+          isAdmin ? <Link href={'/new'}>
+            <button className='float-right bg-green-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-green-800 font-bold duration-100'>เพิ่มเกมใหม่</button>
+          </Link> : <div>
+            <button className='float-right bg-blue-500 text-white px-3 py-2 text-xl rounded-lg -mt-2.5 hover:bg-blue-800 font-bold duration-100' onClick={
+              () => {
+                let pwd = prompt('โปรดใส่รหัสผ่าน');
+                if (pwd && pwd.length > 0) {
+                  submitPassword(pwd);
+                }
+              }
+            }>ระบบแอดมิน</button>
+          </div>
+        }
       </div>
       <div className="lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-2 ">
         {scoreList.map((score: any, index) => {
           return (
-            <ScoreCard data={{ score: score, index: index }} />
+            <ScoreCard data={{ score: score, admin: isAdmin, index: index }} />
           )
         })}
       </div>

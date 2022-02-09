@@ -12,10 +12,14 @@ import BadmintonScore from '../../../../components/BadmintonScore'
 import MuzzleScore from '../../../../components/MuzzleScore'
 import BadmintonScoreManage from '../../../../components/BadmintonScoreManage'
 import MuzzleScoreManage from '../../../../components/MuzzleScoreManage'
+//@ts-ignore
+import Button from "@material-tailwind/react/Button";
+import Link from 'next/link'
 let socket = getSocket();
 const Game = () => {
     const router = useRouter()
     const { id, set } = router.query
+    const [isAdmin, setIsAdmin] = useState(false)
     const [score, setScore] = useState<Score>({
         id: '',
         gameType: GameType.LOADING,
@@ -40,7 +44,10 @@ const Game = () => {
             socket.emit('score:single', { id: id });
         }, 50);
         socket.on('score:single', (data) => {
-            if (data.score.id == id && !isUnloaded) setScore(data.score);
+            if (data.score.id == id && !isUnloaded) {
+                setScore(data.score);
+                setIsAdmin(!!data.admin);
+            }
         })
         const exitingFunction = () => {
             isUnloaded = true;
@@ -51,7 +58,7 @@ const Game = () => {
     return (
         <Layout title="กระดานคะแนน">
             {getScorebaord(id as string, score, set as any)}
-            {getManagementBoard(id as string, score, parseInt(set as string))}
+            {getManagementBoard(id as string, score, parseInt(set as string), isAdmin)}
         </Layout>
     )
 }
@@ -73,8 +80,27 @@ function getScorebaord(id: string, score: Score, set: number) {
         default: return (<div><b>Load viewer failed</b>: Unknown gameType ID: {score.gameType || '#UNKNOWN#'}, please try update tenshi web to latest version</div>)
     }
 }
-function getManagementBoard(id: string, score: Score, set: number) {
+function getManagementBoard(id: string, score: Score, set: number, isAdmin: boolean = false) {
     if (!score) return (<div>กำลังโหลด...</div>)
+    if (!isAdmin) return (<div>
+        {
+            score.state == 4 ? score.gameType == GameType.BASKETBALL ? <div className='flex flex-col items-center justify-center text-3xl mb-4 mt-4'>การแข่งควอเตอร์นี้จบลงแล้ว</div> : <div className='flex flex-col items-center justify-center text-3xl mb-4 mt-4'>การแข่งเซ็ตนี้จบลงแล้ว</div> : ''
+        }
+        <Link href={`/game/${id}/sets`}>
+            <Button
+                color="indigo"
+                buttonType="filled"
+                size="lg"
+                rounded={false}
+                block={true}
+                iconOnly={false}
+                ripple="light"
+                className="mt-4"
+            >
+                {score.gameType == GameType.BASKETBALL ? 'ตรวจสอบควอเตอร์' : 'เลือกเซ็ต'}
+            </Button>
+        </Link>
+    </div>);
     switch (score.gameType) {
         case GameType.BASKETBALL:
             return (<div className='mt-10'><BasketBallManage id={id} data={score} set={set} socket={socket} /></div>);

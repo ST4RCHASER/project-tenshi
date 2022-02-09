@@ -39,6 +39,9 @@ const IndexPage = () => {
     socket.on('score:single', data => {
       if (data.code == '201' && !isUnloaded) {
         isConnected = true;
+        if(!data.admin) {
+          router.push('/');
+        }
         if (data.score.id == id) {
           setFormName(data.score.name);
           setFormType(data.score.gameType);
