@@ -18,7 +18,7 @@ const IndexPage = () => {
   };
   useEffect(() => {
     socket.on('admin:submit', data => {
-      if(!isUnloaded) alert(data.message);
+      if (!isUnloaded) alert(data.message);
     });
     socket.on('client:welcome', data => {
       console.log(data);
@@ -65,7 +65,7 @@ const IndexPage = () => {
   }, []);
   return (
     <Layout title="รายชื่อคะแนนทั้งหมด">
-      <div className="text-5xl ml-4 mb-8">รายชื่อคะแนนทั้งหมด</div>
+      <div className="text-5xl ml-4 mb-8 mt-5"><img src="https://lolis.love/djufn.png" className="inline-block" alt="" style={{ height: '100px', marginTop: '-40px' }} /> <div className="h-full inline-block pl-3">รายชื่อคะแนนทั้งหมด</div></div>
       <div className="mb-8 mt-16">
         {/* <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-blue-400 ml-4 inline-block"></div>
