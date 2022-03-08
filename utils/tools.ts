@@ -26,7 +26,7 @@ export function getStateName(state: GameState): string {
         case GameState.NOT_START:
             return 'ยังไม่เริ่ม'
         case GameState.INGAME:
-            return 'กำลังเล่น'
+            return 'กำลังแข่งขัน'
         case GameState.ENDED:
             return 'จบแล้ว'
         default:

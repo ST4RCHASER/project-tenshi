@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Score } from '../utils'
+import { GameState, Score } from '../utils'
 //@ts-ignore
 import Modal from "@material-tailwind/react/Modal";
 //@ts-ignore
@@ -49,7 +49,7 @@ const MuzzleScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
     }, [id, data])
     return (<div>
         <div className="bg-indigo-50 w-full shadow-lg mt-6 p-5 sm:p-10 border border-blue-100 rounded">
-            <div className="text-center text-3xl sm:text-5xl font-bold">Muzzle</div>
+            <div className="text-center text-3xl sm:text-5xl font-bold">Takraw</div>
             <div className="grid grid-cols-11 text-center text-3xl sm:text-5xl mt-10">
                 <div className="col-span-4">{data.teams[0].name}</div>
                 <div className='col-span-3'></div>
@@ -73,7 +73,7 @@ const MuzzleScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
                 <div className='px-2 py-3 ph font-bold text-center text-2xl'>ทีม {data.teams[0].name}</div>
                 {
                     data.gameMeta.sets.map((set: any, index: number) => {
-                        return (<div className={`px-2 py-3 text-center border-blue-800 border-1 text-xl ${data.gameMeta.sets[index].teams[0].score > data.gameMeta.sets[index].teams[1].score ? 'bg-cyan-500 text-white' : ''}`} key={index}>{set.teams[0].score}</div>)
+                        return (<div className={`px-2 py-3 text-center border-blue-800 border-1 text-xl ${data.gameMeta.sets[index].state != GameState.ENDED ? '' : data.gameMeta.sets[index].teams[0].score > data.gameMeta.sets[index].teams[1].score ? 'bg-green-500 text-white' : ''}`} key={index}>{set.teams[0].score}</div>)
                     })
                 }
                 <div className='px-2 py-3 text-center border-green-700 border-1 text-xl'>
@@ -88,7 +88,7 @@ const MuzzleScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
                 <div className='p-2 text-2xl font-bold text-center'>ทีม {data.teams[1].name}</div>
                 {
                     data.gameMeta.sets.map((set: any, index: number) => {
-                        return (<div className={`px-2 py-3 text-center border-blue-800 border-1 text-xl ${data.gameMeta.sets[index].teams[1].score > data.gameMeta.sets[index].teams[0].score ? 'bg-cyan-500 text-white' : ''}`} key={index}>{set.teams[1].score}</div>)
+                        return (<div className={`px-2 py-3 text-center border-blue-800 border-1 text-xl ${data.gameMeta.sets[index].state != GameState.ENDED ? '' : data.gameMeta.sets[index].teams[1].score > data.gameMeta.sets[index].teams[0].score ? 'bg-green-500 text-white' : ''}`} key={index}>{set.teams[1].score}</div>)
                     })
                 }
                 <div className='px-2 py-3 text-center border-green-700 border-1 text-xl'>

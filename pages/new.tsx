@@ -21,7 +21,7 @@ const IndexPage = () => {
       if (data.code == '201' && !isUnloaded) {
         alert('Game created successfully');
         router.push('/');
-      } else if(!isUnloaded){
+      } else if (!isUnloaded) {
         alert('Game creation failed: ' + data.message);
       }
     });
@@ -97,16 +97,18 @@ const IndexPage = () => {
               return (
                 <div key={index} className="mt-1 ml-4 grid grid-cols-10 gap-1 md:gap-2 lg:gap-1">
                   <div className='md:col-span-9 col-span-7'>{index + 1}. {name}</div>
-                  <button type='button' onClick={() => deleteTeam(index)} className="font-bold md:col-span-1 col-span-3 bg-red-400 hover:bg-red-500 duration-100 rounded-md text-base text-white">Delete</button>
+                  <button type='button' onClick={() => deleteTeam(index)} className="font-bold md:col-span-1 col-span-3 bg-red-400 hover:bg-red-500 duration-100 rounded-md text-base text-white">ลบ</button>
                 </div>
               )
             }) : <p className='text-gray-600 text-center'> - ไม่มีทีมในตอนนี้ - </p>
           }
         </div>
-        <div className="mt-10 ml-4 grid grid-cols-10 gap-1 md:gap-2 lg:gap-1">
-          <input value={teamInput} onChange={e => { setTeamInput(e.currentTarget.value); }} type="text" className="rounded w-full md:col-span-9 col-span-7" placeholder='พิมพ์ชื่อทีมและกด "เพิ่มทีมใหม่"' />
-          <button onClick={addTeam} type='button' className="font-bold md:col-span-1 col-span-3 bg-blue-500 hover:bg-blue-600 duration-100 rounded-md text-white">เพิ่มทีมใหม่</button>
-        </div>
+        {
+          teamList.length < 2 ? <div className="mt-10 ml-4 grid grid-cols-10 gap-1 md:gap-2 lg:gap-1">
+            <input value={teamInput} onChange={e => { setTeamInput(e.currentTarget.value); }} type="text" className="rounded w-full md:col-span-9 col-span-7" placeholder='พิมพ์ชื่อทีมและกด "เพิ่มทีมใหม่"' />
+            <button onClick={addTeam} type='button' className="font-bold md:col-span-1 col-span-3 bg-blue-500 hover:bg-blue-600 duration-100 rounded-md text-white">เพิ่มทีมใหม่</button>
+          </div> : null
+        }
         <button type='submit' className="font-bold col-span-1 bg-green-500 hover:bg-green-600 duration-100 rounded-md text-white px-6 py-2 float-right mt-10">สร้างเกมนี้</button>
       </form>
     </Layout>

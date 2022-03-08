@@ -77,7 +77,7 @@ const IndexPage = () => {
         </div>
         <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-green-400 ml-4 inline-block"></div>
-          <div className="inline-block ml-2">กำลังเล่น</div>
+          <div className="inline-block ml-2">กำลังแข่งขัน</div>
         </div>
         <div className="inline-block">
           <div className="rounded-xl h-3 w-3 bg-red-400 ml-4 inline-block"></div>
@@ -98,14 +98,38 @@ const IndexPage = () => {
           </div>
         }
       </div>
+      <div className='text-4xl'>กีฬาที่กำลังแข่งขัน</div>
+      <hr />
+      <br />
       <div className="lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-2 ">
-        {scoreList.map((score: any, index) => {
+        {scoreList.filter(s => s.state == GameState.INGAME).map((score: any, index) => {
           return (
             <ScoreCard data={{ score: score, admin: isAdmin, index: index }} />
           )
         })}
       </div>
-
+      <div className='text-4xl mt-8 pt-8'>กีฬาที่ยังไม่เริ่ม</div>
+      <hr />
+      <br />
+      <div className="lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-2 ">
+        {scoreList.filter(s => s.state == GameState.NOT_START).map((score: any, index) => {
+          return (
+            <ScoreCard data={{ score: score, admin: isAdmin, index: index }} />
+          )
+        })}
+      </div>
+      <div className='text-4xl mt-8 pt-8'>กีฬาที่จบแล้ว</div>
+      <hr />
+      <br />
+      <div className="lg:grid-cols-2 xl:grid-cols-3 grid grid-cols-1 gap-2 ">
+        {scoreList.filter(s => s.state == GameState.ENDED).map((score: any, index) => {
+          return (
+            <ScoreCard data={{ score: score, admin: isAdmin, index: index }} />
+          )
+        })}
+      </div>
+        <br />
+        <br />
       {/* <div className='text-center text-2xl bg-blue-50 rounded shadow-md mt-6'>
         <table className="table-auto w-full">
           <thead>
