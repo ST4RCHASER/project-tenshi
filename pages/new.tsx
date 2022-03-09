@@ -76,7 +76,7 @@ const IndexPage = () => {
             <select id='gameType' name='gameType' className="form-select px-4 py-3 rounded w-full">
               <option disabled value="0">โปรดเลือก</option>
               <option value="1">บาสเกตบอล</option>
-              <option value="2">ฟุตบอล</option>
+              <option value="11">ฟุตบอล</option>
               <option value="4">วอลเลย์บอล</option>
               <option value="6">เปตอง</option>
               <option value="7">ตะกร้อ</option>

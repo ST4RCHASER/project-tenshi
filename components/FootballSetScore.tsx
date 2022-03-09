@@ -18,11 +18,11 @@ type Props = {
     data: Score
     set: number
 }
-const MuzzleScore = ({ id, data, set }: Props) => {
+const FootballSetScore = ({ id, data, set }: Props) => {
     useEffect(() => {
     }, [])
     return (<div className="bg-indigo-50 w-full shadow-lg mt-6 p-5 sm:p-10 border border-blue-100 rounded">
-        <div className="text-center text-3xl sm:text-5xl font-bold">Takraw</div>
+        <div className="text-center text-3xl sm:text-5xl font-bold">Football</div>
         <div className="grid grid-cols-11 text-center text-3xl sm:text-5xl mt-10">
             <div className="col-span-4">{data.gameMeta.sets[set - 1].teams[0].name}</div>
             <div className='col-span-3'></div>
@@ -34,8 +34,8 @@ const MuzzleScore = ({ id, data, set }: Props) => {
             <div className="col-span-3">-</div>
             <div className="col-span-4">{data.gameMeta.sets[set - 1].teams[1].score}</div>
         </div>
-        <div className="text-center text-3xl sm:text-4xl mt-10">เซ็ท: {data.gameMeta.sets[set - 1].id || 0}</div>
+        <div className="text-center text-3xl sm:text-4xl mt-10">{data.gameMeta.sets[set - 1].name}</div>
     </div>);
 }
 
-export default MuzzleScore
+export default FootballSetScore

@@ -37,7 +37,7 @@ const MuzzleScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
         let score_b = 0;
         //Calc score by set score more than or not
         for (const set of data.gameMeta.sets) {
-            if (set.teams[0].score == set.teams[1].score) continue;
+            if (set.teams[0].score == set.teams[1].score || set.state != GameState.ENDED) continue;
             if (set.teams[0].score > set.teams[1].score) {
                 score_a += 1;
             } else {

@@ -47,7 +47,7 @@ const Sets = () => {
                             ripple="light"
                             className='mb-3'
                         >
-                            {object.gameType == 3 ? 'ควอเตอร์ ' : 'เซ็ท '} {i + 1}
+                            {object.gameType == GameType.FOOTBALL_SET_ROUND ? object.name : object.gameType == GameType.BADMINTON_SET ? 'ควอเตอร์ ' : 'เซ็ท '} {object.gameType == GameType.FOOTBALL_SET_ROUND ? '' : i + 1}
                         </Button>
                     </Link>)
                 })}

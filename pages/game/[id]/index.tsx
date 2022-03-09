@@ -16,6 +16,7 @@ import PetanqueManager from '../../../components/PetanqueManager'
 import BadmintonScore from '../../../components/BadmintonScore'
 import BadmintonScoreTotal from '../../../components/BadmintonScoreTotal'
 import MuzzleScoreTotal from '../../../components/MuzzleScoreTotal'
+import FootballSetScoreTotal from '../../../components/FootballSetScoreTotal'
 let socket = getSocket();
 const Game = () => {
     const router = useRouter()
@@ -70,6 +71,8 @@ function getScorebaord(id: string, data: Score | undefined, isAdmin: boolean = f
             return (<BasketBallScoreTotal id={id} data={data} socket={socket} isAdmin={isAdmin} />);
         case GameType.FOOTBALL:
             return (<FootBallScore id={id} data={data} />);
+        case GameType.FOOTBALL_SET:
+            return (<FootballSetScoreTotal  id={id} data={data} socket={socket} isAdmin={isAdmin} />);
         case GameType.VOLLEYBALL:
             return (<VolleyballScoreTotal id={id} data={data} socket={socket} isAdmin={isAdmin} />)
         case GameType.PETANQUE:
@@ -94,7 +97,7 @@ function getManagementBoard(id: string, data: Score | undefined, isAdmin: boolea
                     iconOnly={false}
                     ripple="light"
                 >
-                    {data.gameType == GameType.BASKETBALL ? 'ตรวจสอบควอเตอร์' : 'เลือกเซ็ต'}
+                    {data.gameType == GameType.FOOTBALL_SET ? 'รอบแข่งขัน' : data.gameType == GameType.BASKETBALL ? 'ตรวจสอบควอเตอร์' : 'เลือกเซ็ต'}
                 </Button>
             </Link>
             <Link href={'/'}>

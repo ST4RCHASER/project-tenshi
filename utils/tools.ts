@@ -8,6 +8,7 @@ export function getGameName(gameType: GameType): string {
         case GameType.BASKETBALL:
             return 'บาสเกตบอล'
         case GameType.FOOTBALL:
+        case GameType.FOOTBALL_SET:
             return 'ฟุตบอล'
         case GameType.VOLLEYBALL:
             return 'วอลเลย์บอล'

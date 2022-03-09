@@ -15,6 +15,8 @@ import MuzzleScoreManage from '../../../../components/MuzzleScoreManage'
 //@ts-ignore
 import Button from "@material-tailwind/react/Button";
 import Link from 'next/link'
+import FootballSetScore from '../../../../components/FootballSetScore'
+import FootballSetScoreManage from '../../../../components/FootballSetScoreManage'
 let socket = getSocket();
 const Game = () => {
     const router = useRouter()
@@ -69,6 +71,8 @@ function getScorebaord(id: string, score: Score, set: number) {
             return (<BasketBallScore id={id} data={score} set={set} />);
         case GameType.FOOTBALL:
             return (<FootBallScore id={id} data={score} />);
+        case GameType.FOOTBALL_SET:
+            return (<FootballSetScore id={id} data={score} set={set} />);
         case GameType.VOLLEYBALL:
             return (<VolleyballScore id={id} data={score} set={set} />)
         case GameType.BADMINTON:
@@ -97,7 +101,7 @@ function getManagementBoard(id: string, score: Score, set: number, isAdmin: bool
                 ripple="light"
                 className="mt-4"
             >
-                {score.gameType == GameType.BASKETBALL ? 'ตรวจสอบควอเตอร์' : 'เลือกเซ็ต'}
+                {score.gameType == GameType.FOOTBALL_SET ? 'รอบแข่งขัน' : score.gameType == GameType.BASKETBALL ? 'ตรวจสอบควอเตอร์' : 'เลือกเซ็ต'}
             </Button>
         </Link>
     </div>);
@@ -106,6 +110,8 @@ function getManagementBoard(id: string, score: Score, set: number, isAdmin: bool
             return (<div className='mt-10'><BasketBallManage id={id} data={score} set={set} socket={socket} /></div>);
         case GameType.FOOTBALL:
             return (<div className='mt-10'><FootBallManage id={id} data={score} socket={socket} /></div>);
+        case GameType.FOOTBALL_SET:
+            return (<div className='mt-10'><FootballSetScoreManage id={id} data={score} set={set} socket={socket} /></div>);
         case GameType.VOLLEYBALL:
             return (<div className='mt-10'><VolleyballScoreManage id={id} data={score} socket={socket} set={set} /></div>);
         case GameType.BADMINTON:

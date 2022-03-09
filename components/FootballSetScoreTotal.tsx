@@ -19,7 +19,7 @@ type Props = {
     socket: Socket
     isAdmin: boolean
 }
-const VolleyballScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
+const FootballSetScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
     const router = useRouter()
     const [teamAScore, setTeamAScore] = useState<number>(0)
     const [teamBScore, setTeamBScore] = useState<number>(0)
@@ -37,7 +37,6 @@ const VolleyballScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
         let score_b = 0;
         //Calc score by set score more than or not
         for (const set of data.gameMeta.sets) {
-            console.log(set)
             if (set.teams[0].score == set.teams[1].score || set.state != GameState.ENDED) continue;
             if (set.teams[0].score > set.teams[1].score) {
                 score_a += 1;
@@ -50,7 +49,7 @@ const VolleyballScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
     }, [id, data])
     return (<div>
         <div className="bg-indigo-50 w-full shadow-lg mt-6 p-5 sm:p-10 border border-blue-100 rounded">
-            <div className="text-center text-3xl sm:text-5xl font-bold">Volleyball</div>
+            <div className="text-center text-3xl sm:text-5xl font-bold">Football</div>
             <div className="grid grid-cols-11 text-center text-3xl sm:text-5xl mt-10">
                 <div className="col-span-4">{data.teams[0].name}</div>
                 <div className='col-span-3'></div>
@@ -60,45 +59,6 @@ const VolleyballScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
                 <div className="col-span-4">{teamAScore}</div>
                 <div className="col-span-3">-</div>
                 <div className="col-span-4">{teamBScore}</div>
-            </div>
-            <div className='grid grid-cols-6 gap-6 pl-16 pr-16'>
-                <div className='p-3'></div>
-                {
-                    data.gameMeta.sets.map((set: any, index: number) => {
-                        return (<div className='px-2 py-3 font-bold text-2xl text-center' key={index}>{index + 1}</div>)
-                    })
-                }
-                {/* <div className='px-2 py-3 text-xl font-bold text-center'>รวม</div> */}
-            </div>
-            <div className='grid grid-cols-6 gap-6 pl-16 pr-16'>
-                <div className='px-2 py-3 ph font-bold text-center text-2xl'>ทีม {data.teams[0].name}</div>
-                {
-                    data.gameMeta.sets.map((set: any, index: number) => {
-                        return (<div className={`px-2 py-3 text-center border-blue-800 border-1 text-xl ${data.gameMeta.sets[index].state != GameState.ENDED ? '' : data.gameMeta.sets[index].teams[0].score > data.gameMeta.sets[index].teams[1].score ? 'bg-green-500 text-white' : ''}`} key={index}>{set.teams[0].score}</div>)
-                    })
-                }
-                {/* <div className='px-2 py-3 text-center border-green-700 border-1 text-xl'>
-                    {
-                        data.gameMeta.sets.reduce((acc: number, cur: any) => {
-                            return acc + cur.teams[0].score
-                        }, 0)
-                    }
-                </div> */}
-            </div>
-            <div className='grid grid-cols-6 gap-6 pl-16 pr-16 mt-4 text-xl'>
-                <div className='p-2 text-2xl font-bold text-center'>ทีม {data.teams[1].name}</div>
-                {
-                    data.gameMeta.sets.map((set: any, index: number) => {
-                        return (<div className={`px-2 py-3 text-center border-blue-800 border-1 text-xl ${data.gameMeta.sets[index].state != GameState.ENDED ? '' : data.gameMeta.sets[index].teams[1].score > data.gameMeta.sets[index].teams[0].score ? 'bg-green-500 text-white' : ''}`} key={index}>{set.teams[1].score}</div>)
-                    })
-                }
-                {/* <div className='px-2 py-3 text-center border-green-700 border-1 text-xl'>
-                    {
-                        data.gameMeta.sets.reduce((acc: number, cur: any) => {
-                            return acc + cur.teams[1].score
-                        }, 0)
-                    }
-                </div> */}
             </div>
             <div className="text-center text-3xl sm:text-4xl mt-10">คะแนนรวม</div>
         </div>
@@ -130,7 +90,7 @@ const VolleyballScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
                                 iconOnly={false}
                                 ripple="light"
                             >
-                                ตรวจสอบเซ็ต
+                                รอบแข่งขัน
                             </Button>
                         </Link>
                     </div>
@@ -160,7 +120,7 @@ const VolleyballScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
                             iconOnly={false}
                             ripple="light"
                         >
-                            ตรวจสอบเซ็ต
+                            รอบแข่งขัน
                         </Button>
                     </Link>
                     <Button
@@ -183,4 +143,4 @@ const VolleyballScoreTotal = ({ id, data, socket, isAdmin }: Props) => {
     )
 }
 
-export default VolleyballScoreTotal
+export default FootballSetScoreTotal
